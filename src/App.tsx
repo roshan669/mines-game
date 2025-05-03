@@ -186,8 +186,18 @@ function App() {
           ⬆️
         </button>
         <button onClick={handleRetry}>🔃 Retry</button>{" "}
-        {/* Added text for clarity */}
       </div>
+      <a href="https://github.com/roshan669" className="link">
+        <h6
+          style={{
+            fontFamily: "cursive",
+            height: 0.1,
+            marginTop: "0.1px",
+          }}
+        >
+          made with ❤️ by Roshan
+        </h6>
+      </a>
     </div>
   );
 }

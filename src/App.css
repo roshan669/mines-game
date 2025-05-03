@@ -143,3 +143,9 @@
   color: red;
   text-align: center;
 }
+
+.link {
+  color: black;
+  font-size: medium;
+  text-decoration: dotted;
+}
