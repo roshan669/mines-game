@@ -103,16 +103,28 @@
   transform: rotateY(180deg); /* Initially rotated away */
 }
 
-/* Specific styling for the revealed mine boxes (0) */
-.boxes.revealed .box-back img[alt="Bomb"] {
-  /* Add specific styles if needed for the bomb side */
-  /* background-color: red; */
+.boxes .box-inner .box-back img {
+  display: block; /* Ensures the image behaves as a block element */
+  max-width: 80%; /* Limit the maximum width to 80% of its container */
+  max-height: 80%; /* Limit the maximum height to 80% of its container */
+  width: auto; /* Allow the width to adjust based on height and aspect ratio */
+  height: auto; /* Allow the height to adjust based on width and aspect ratio */
+  object-fit: contain; /* Scales the image to fit within the container while maintaining aspect ratio */
+  margin: auto; /* Center the image within the flex container (if box-back is flex/grid) */
 }
 
-/* Specific styling for the revealed diamond boxes (1) */
-.boxes.revealed .box-back img[alt="Diamond"] {
-  /* Add specific styles if needed for the diamond side */
-  /* background-color: yellow; */
+.boxes .box-inner .box-back {
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Ensure box-back takes full size of its parent */
+  height: 100%; /* Ensure box-back takes full size of its parent */
+  /* Add any other existing styles for box-back */
+  position: absolute; /* Assuming box-inner has position: relative */
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg); /* Keep the flip transformation */
 }
 
 .bottomContainer {

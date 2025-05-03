@@ -164,15 +164,10 @@ function App() {
                 <div className="box-back">
                   {/* Conditionally display the item based on its value */}
                   {item === 1 ? ( // Use strict equality ===
-                    <img
-                      height={50}
-                      width={50}
-                      src={diamondImage}
-                      alt="Diamond"
-                    /> // Use imported image variable
+                    <img src={diamondImage} alt="Diamond" /> // Use imported image variable
                   ) : (
                     // If item is 0 (mine), display the bomb image when revealed
-                    <img height={50} width={50} src={bombImage} alt="Bomb" /> // Use imported image variable
+                    <img src={bombImage} alt="Bomb" /> // Use imported image variable
                   )}
                 </div>
               </div>
