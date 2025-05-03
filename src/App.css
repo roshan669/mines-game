@@ -7,16 +7,18 @@
 }
 
 .Topcontainer {
-  background-color: beige;
+  background-color: chocolate;
   height: 70vh; /* Use viewport height */
   width: 80vh; /* Use viewport height for width to keep it square */
   display: grid;
   overflow: hidden;
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
+  gap: 2px;
   padding: 20px;
   box-sizing: border-box; /* Include padding in width/height */
+  border: 3px solid green;
+  border-radius: 5px;
 }
 
 /* Optional: Adjust for smaller screens if needed */
@@ -40,19 +42,19 @@
   perspective: 1000px; /* Creates the 3D perspective */
   transform-style: preserve-3d; /* Children exist in 3D space */
   cursor: pointer; /* Moved from :hover */
+  border-radius: 2px;
 }
 
 .boxes:hover {
   /* Optional hover effects like slight scale or lift */
-  transform: scale(1.03);
-  transition: transform 0.2s ease-in-out;
+  transform: scale(1.009);
+  transition: transform 0.4s ease-in-out;
 }
 
 /* Add class to indicate game over state */
 .boxes.game-over {
   pointer-events: none; /* Prevent clicks when game is over */
   /* Optional: Add specific styling for game over boxes */
-  /* opacity: 0.8; */
 }
 
 /* Inner container that does the actual flip */
@@ -61,7 +63,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.6s; /* Animation duration */
+  transition: transform 0.5s; /* Animation duration */
   transform-style: preserve-3d; /* Children should preserve 3D position */
 }
 
@@ -90,6 +92,10 @@
   transform: rotateY(0deg); /* Initially facing the user */
 }
 
+.box-front:hover {
+  background-color: rgb(175, 174, 174);
+}
+
 /* Style the back side (revealed) */
 .box-back {
   background-color: lightblue; /* Example background for revealed state */
@@ -115,7 +121,7 @@
   align-items: center;
   flex-direction: row;
   gap: 10px;
-  margin-top: 20px; /* Add some space below the grid */
+  margin-top: 10px; /* Add some space below the grid */
 }
 
 /* Style for the game over message */

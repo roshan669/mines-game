@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 // Import image files - make sure paths are correct relative to this file
-import diamondImage from "../public/assets/diamond.png";
-import bombImage from "../public/assets/bomb.png";
+import diamondImage from "./assets/diamond.png";
+import bombImage from "./assets/bomb.png";
 // Import audio files - make sure paths are correct relative to this file
-import bombAudio from "../public/assets/bomb.mp3";
-import diamondAudio from "../public/assets/diamond.mp3";
+import bombAudio from "./assets/bomb.mp3";
+import diamondAudio from "./assets/diamond.mp3";
 
 // Utility function to generate the layout (can be outside the component)
 function generateArrayWithZerosAndOnes(
@@ -80,7 +80,6 @@ function App() {
 
   // Function to set up a new game
   const setupNewGame = () => {
-    console.log(`Setting up a new game with ${mines} mines.`);
     const newLayout = generateArrayWithZerosAndOnes(25, mines); // Pass total size and number of zeros
     setLayout(newLayout);
     setRevealedStatus(Array(newLayout.length).fill(false));
@@ -105,7 +104,6 @@ function App() {
     const clickedValue = layout[index];
     if (clickedValue === 0) {
       // It's a mine!
-      console.log(`Clicked on a mine at index ${index}!`);
       bombAudioEffect
         .play()
         .catch((e) => console.error("Bomb audio playback failed:", e));
@@ -113,12 +111,13 @@ function App() {
       setGameOver(true); // Game Over
 
       // Optional: Reveal all mines when a mine is hit (uncomment if desired)
-      // setTimeout(() => { // Add a slight delay to allow the clicked mine to flip first
-      //      setRevealedStatus(Array(layout.length).fill(true));
-      // }, 800); // Delay slightly longer than the animation duration
+      setTimeout(() => {
+        // Add a slight delay to allow the clicked mine to flip first
+        setRevealedStatus(Array(layout.length).fill(true));
+      }, 300); // Delay slightly longer than the animation duration
     } else {
       // It's an empty square (or a diamond)
-      console.log(`Clicked on an empty square (1) at index ${index}.`);
+
       diamondAudioEffect
         .play()
         .catch((e) => console.error("Diamond audio playback failed:", e));
