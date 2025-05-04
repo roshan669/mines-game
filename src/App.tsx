@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-// Import image files - make sure paths are correct relative to this file
+
 import diamondImage from "./assets/diamond.png";
 import bombImage from "./assets/bomb.png";
-// Import audio files - make sure paths are correct relative to this file
+
 import bombAudio from "./assets/bomb.mp3";
 import diamondAudio from "./assets/diamond.mp3";
+import confettiAudio from "./assets/confetti.mp3";
+
+import Confetti from "react-confetti";
 
 // Utility function to generate the layout (can be outside the component)
 function generateArrayWithZerosAndOnes(
@@ -59,10 +62,13 @@ function App() {
   const [layout, setLayout] = useState<number[]>([]);
   const [revealedStatus, setRevealedStatus] = useState<boolean[]>([]);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [confetti, setConfetti] = useState<boolean>(false);
+  const [reavealCount, setRevealCount] = useState(1);
 
   // Use memoized Audio objects to avoid creating new ones on every click
   const bombAudioEffect = new Audio(bombAudio); // Use imported audio variable
   const diamondAudioEffect = new Audio(diamondAudio); // Use imported audio variable
+  const confettiAudioEffect = new Audio(confettiAudio);
 
   const handleUp = () => {
     if (mines < 20 && !gameOver) {
@@ -96,10 +102,19 @@ function App() {
       return;
     }
 
+    if (!gameOver && mines + reavealCount === 25) {
+      setConfetti(true);
+      confettiAudioEffect
+        .play()
+        .catch((e) => console.error("confetti audio playback failed:", e));
+      setGameOver(true);
+    }
+
     // Create a *copy* of the current revealedStatus array
     const newRevealedStatus = [...revealedStatus];
     // Set the status for the clicked box's index to true (revealed)
     newRevealedStatus[index] = true;
+    setRevealCount((prev) => prev + 1);
     // Update the state with the new array (triggers re-render and animation)
     setRevealedStatus(newRevealedStatus);
 
@@ -133,11 +148,15 @@ function App() {
   // Effect to run when the component mounts or when 'mines' changes
   useEffect(() => {
     setupNewGame(); // Call the setup function
+    setRevealCount(1);
+    setConfetti(false);
   }, [mines]); // Dependency array: This effect runs whenever the 'mines' state changes
 
   // Handler for the Retry button
   const handleRetry = () => {
     setupNewGame(); // Call the setup function to start a new game
+    setRevealCount(1);
+    setConfetti(false);
   };
 
   return (
@@ -180,8 +199,7 @@ function App() {
       </div>
 
       <div className="bottomContainer">
-        <h6>Mines: {mines}</h6>
-        {/* Disable buttons when game over */}
+        <h3>Mines: {mines}</h3>
         <button onClick={handleDown} disabled={gameOver}>
           ⬇️
         </button>
@@ -201,6 +219,7 @@ function App() {
           made with ❤️ by Roshan
         </h6>
       </a>
+      {confetti && <Confetti />}
     </div>
   );
 }
