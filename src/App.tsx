@@ -81,7 +81,10 @@ function App() {
   // Function to set up a new game
   const setupNewGame = () => {
     const newLayout = generateArrayWithZerosAndOnes(25, mines); // Pass total size and number of zeros
-    setLayout(newLayout);
+    setTimeout(() => {
+      setLayout(newLayout);
+    }, 500);
+
     setRevealedStatus(Array(newLayout.length).fill(false));
     setGameOver(false); // Reset game over status
   };
